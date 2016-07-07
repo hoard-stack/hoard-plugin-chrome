@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "Getting started example",
+  "description": "This extension shows a Google Image search result for the current page",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "wat.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+  {
+    "matches": ["https://www.facebook.com/*"],
+    "css": ["style.css"],
+    "js": ["content_script.js"]
+  }
+],
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "http://www.facebook.com/*",
+    "https://www.facebook.com/*"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Hoard",
+  "version": "1.0.0",
+  "description": "Hoard plugin for Chrome browser.",
+  "keywords": [
+    "hoard"
+  ],
+  "homepage": "https://github.com/hoard-stack/hoard-plugin-chrome",
+  "bugs": {
+    "url": "https://github.com/hoard-stack/hoard-plugin-chrome/issues"
+  },
+  "license": "MIT",
+  "main": "dist/content_script.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hoard-stack/hoard-plugin-chrome"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-babel": "^6.1.2",
+    "gulp-sass": "^2.3.1"
+  }
+}
