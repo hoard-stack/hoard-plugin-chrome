@@ -13,6 +13,13 @@ gulp.task('build-js', function() {
           .pipe(gulp.dest('./dist'))
 });
 
+gulp.task('build-libs', function() {
+  return gulp.src('./src/libs/*.js')
+          .pipe(babel())
+          .on('error', console.error.bind(console))
+          .pipe(gulp.dest('./dist/libs'))
+});
+
 gulp.task('build-html', function() {
   return gulp.src('./src/*.html')
           .on('error', console.error.bind(console))
@@ -38,4 +45,4 @@ gulp.task('build-manifest', function() {
 });
 
 
-gulp.task('build', ['build-js', 'build-html', 'build-css', 'build-images', 'build-manifest']);
+gulp.task('build', ['build-js', 'build-libs', 'build-html', 'build-css', 'build-images', 'build-manifest']);

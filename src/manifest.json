@@ -11,9 +11,8 @@
   {
     "matches": ["https://www.facebook.com/*"],
     "css": ["content/css/style.css"],
-    "js": ["main.js"]
-  }
-],
+    "js": ["main.js", "libs/jquery-3.0.0.min.js"]
+  }],
   "permissions": [
     "activeTab",
     "tabs",
