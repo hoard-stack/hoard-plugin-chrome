@@ -25,13 +25,7 @@ class LinkStore {
 	}
 
 	store(links){
- 		localStorage.setItem(this.storageName, JSON.stringify(links));
-	}
-
-	get(){
-		var links = localStorage.getItem(this.storageName);
-
-		return JSON.stringify(links);
+ 		chrome.storage.sync.set({'links': links});
 	}
 }
 
@@ -42,8 +36,6 @@ class LinkProcessor {
 		 var linkStore = new LinkStore();
 		 var links = linkFetcher.fetch();
 		 linkStore.store(links);
-		 var storedLinks = linkStore.get();
-		 console.log(storedLinks);
 	}
 }
 

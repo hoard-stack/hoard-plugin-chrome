@@ -15,6 +15,7 @@
   }],
   "permissions": [
     "activeTab",
+    "storage",
     "tabs",
     "http://www.facebook.com/*",
     "https://www.facebook.com/*"
