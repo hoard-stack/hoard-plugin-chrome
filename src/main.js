@@ -21,11 +21,11 @@ class LinkFetcher {
 class LinkStore {
 
 	constructor(){
-		this.storageName = "hoard.links"; 
+		this.storageName = "hoard.links";
 	}
 
 	store(links){
- 		chrome.storage.sync.set({'links': links});
+ 		chrome.storage.local.set({'links': links});
 	}
 }
 
@@ -39,5 +39,17 @@ class LinkProcessor {
 	}
 }
 
-var linkProcessor = new LinkProcessor();
-setInterval(linkProcessor.process, 1000);
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+if (request.greeting == "hello")
+{
+		var linkProcessor = new LinkProcessor();
+		linkProcessor.process(function(){
+			console.log(this);
+		});
+		var ReqDat = 'Wczytano linki';
+    sendResponse({farewell: ReqDat});
+}
+
+else
+    sendResponse({}); // snub them.
+ });
