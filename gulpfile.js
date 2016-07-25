@@ -1,13 +1,18 @@
 var gulp = require("gulp"),
 babel = require("gulp-babel");
 
+var jsFiles = [
+    './src/*.js',
+    './src/features/*.js'
+];
+
 gulp.task('watch', ['build'], function() {
   gulp.watch('./src/*.js', ['build-js']);
   gulp.watch('./src/*.css', ['build-css']);
 });
 
 gulp.task('build-js', function() {
-  return gulp.src('./src/*.js')
+    return gulp.src(jsFiles, {base: 'src'})
           .pipe(babel())
           .on('error', console.error.bind(console))
           .pipe(gulp.dest('./dist'))
