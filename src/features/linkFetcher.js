@@ -1,4 +1,6 @@
-export class LinkFetcher {
+'use strict';
+
+class LinkFetcher {
 
 	fetch(){
 		 var $conversation = $(".conversation");

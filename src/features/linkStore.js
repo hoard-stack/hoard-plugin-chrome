@@ -1,4 +1,6 @@
-export class LinkStore {
+'use strict';
+
+class LinkStore {
 
     constructor(){
         this.storageName = "hoard.links";

@@ -1,7 +1,6 @@
-import {LinkFetcher} from 'linkFetcher';
-import {LinkStore} from 'linkStore';
+'use strict';
 
-export class LinkProcessor {
+class LinkProcessor {
 
     process(){
         var linkFetcher = new LinkFetcher();

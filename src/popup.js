@@ -1,4 +1,6 @@
-chrome.storage.local.get(['links'], function(storage) {
+'use strict';
+
+chrome.storage.local.get(['links'], function (storage) {
 		var $links = $("#links");
 		appendStorage(storage, $links);
 });

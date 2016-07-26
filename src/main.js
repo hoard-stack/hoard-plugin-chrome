@@ -1,5 +1,4 @@
-
-
+'use strict';
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 if (request.greeting == "hello")
