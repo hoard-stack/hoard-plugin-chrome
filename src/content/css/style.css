@@ -1,0 +1,13 @@
+.hoard_add
+{
+  width: 100%;
+  text-align: center;
+  display:block;
+  clear:both;
+  cursor:pointer;
+}
+.hoard_add_image
+{
+  width:20px;
+  height:20px;
+}
