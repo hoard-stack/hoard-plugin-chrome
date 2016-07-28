@@ -3,7 +3,8 @@ babel = require("gulp-babel");
 
 var jsFiles = [
     './src/*.js',
-    './src/features/*.js'
+    './src/features/*.js',
+    './src/features/parsers/*.js'
 ];
 
 gulp.task('watch', ['build'], function() {
