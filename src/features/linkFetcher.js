@@ -2,20 +2,23 @@
 
 class LinkFetcher {
 
-	fetch(){
-		 var $conversation = $(".conversation");
-		 var $links = $conversation.find("a");
-		 var savedLinks = [];
+    fetch() {
+        var $conversation = $(".conversation");
+        var $links = $conversation.find("a");
+        var savedLinks = [];
+        var parser = new LinkParser();
 
-		 $.each($links, function(index, link){
-		 	var url = $(link).attr("href");
-		 	var target = $(link).attr("target");
-			if(!target || target !== "_blank")
-				return;
+        $.each($links,
+            function(index, link) {
+                var url = $(link).attr("href");
+                var target = $(link).attr("target");
+                if (!target || target !== "_blank")
+                    return;
 
-		 	savedLinks.push(url);
-		 });
+                var parsedLink = parser.parse(url);
+                savedLinks.push(parsedLink);
+            });
 
-		 return savedLinks;
-	}
+        return savedLinks;
+    }
 };

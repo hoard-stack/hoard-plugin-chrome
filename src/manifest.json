@@ -11,7 +11,18 @@
   {
     "matches": ["https://www.facebook.com/*"],
     "css": ["content/css/style.css"],
-    "js": [ "libs/jquery-3.0.0.min.js", "main.js", "features/linkFetcher.js", "features/linkProcessor.js", "features/linkStore.js" ]
+    "js": [
+      "libs/jquery-3.0.0.min.js",
+      "main.js",
+      "features/linkFetcher.js",
+      "features/linkProcessor.js",
+      "features/linkStore.js",
+      "features/parsers/linkParser.js",
+      "features/parsers/defaultLinkParser.js",
+      "features/parsers/emptyLinkParser.js",
+      "features/parsers/facebookLinkParser.js",
+      "features/parsers/instagramLinkParser.js"
+    ]
   }],
   "permissions": [
     "activeTab",
