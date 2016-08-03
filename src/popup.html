@@ -30,12 +30,22 @@
      -->
   </head>
   <body>
-    <div>
+  <div>
+      <div id="user-status">
+          <div id="user-status-authenticated" style="display: none">
+              <span>Authenticated: </span>
+              <span id="user-email"></span>
+              <a href="http://localhost/profile" target="_blank">Profile</a>
+          </div>
+          <div id="user-status-unauthenticated">
+              <span>Unauthenticated -> <a href="http://localhost/login" target="_blank">Login</a></span>
+          </div>
+      </div>
       <strong>Links</strong>
       <button id="load-links">Refresh</button>
       <ol id="links">
       </ol>
-    </div>
+  </div>
     <script src="libs/jquery-3.0.0.min.js"></script>
     <script src="popup.js"></script>
   </body>

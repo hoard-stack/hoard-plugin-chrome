@@ -29,7 +29,9 @@
     "storage",
     "tabs",
     "http://www.facebook.com/*",
-    "https://www.facebook.com/*"
+    "https://www.facebook.com/*",
+    "http://*/*",
+    "https://*/*"
   ],
    "web_accessible_resources": [
      "content/images/add.png"
