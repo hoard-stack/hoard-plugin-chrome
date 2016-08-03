@@ -2,12 +2,36 @@
 
 $( document ).ready(function() {
 	var $conversation = $(".conversation");
-	var $msgs2 = $conversation.find("._5wd9");
+	var $msgs = $conversation.find("._d97");
 
-	$.each($msgs2, function(index, msg){
-		 var img_add = chrome.extension.getURL('content/images/add.png');
-		 $(msg).after( "<div class='hoard_add'><img src='" + img_add + "' class='hoard_add_image'></div>" );
+
+	$(".conversation").on("mouseenter", '._d97', function(){
+			$(this).css('background-color','#81bb81');
+			$(this).css('cursor','pointer');
+			 var img_add = chrome.extension.getURL('content/images/add.png');
+			 $(this).on('click', function(){
+				 var $li = $(this).find("a");
+				 var url = $li.attr("href");
+				 console.log(url);
+					chrome.storage.local.get(['links'], function(storage) {
+						if(typeof storage.links == 'undefined') {
+							storage.links = [];
+						}
+						var $links = $("#links");
+						storage.links.push(url);
+						chrome.storage.local.set({'links': storage.links});
+						appendStorage(storage, $links);
+				});
+			});
+
+			// $(this).after( "<div class='hoard_add'><img src='" + img_add + "' class='hoard_add_image'></div>" );
 	});
+	$(".conversation").on("mouseleave", '._d97', function(){
+			 $(this).css('background-color', 'initial');
+			 $(this).css('cursor','normal');
+		//	 $(this).parent().find('.hoard_add').remove();
+	});
+
 });
 
 function appendStorage(storage, $links){
