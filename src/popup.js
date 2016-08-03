@@ -1,5 +1,26 @@
 'use strict';
 
+class UserManager {
+
+    constructor() {
+    }
+
+    isAuthenticated() {
+        getUser().then(function (user) {
+            return user.email !== "";
+        });
+    }
+
+    getUser() {
+        return $.get("http://localhost/authinfo", function (user) {
+            return user;
+        }).fail(function () {
+            alert("There was an error while trying to load the user.");
+        });
+    }
+}
+
+
 chrome.storage.local.get(['links'], function (storage) {
 		var $links = $("#links");
 		appendStorage(storage, $links);
@@ -22,7 +43,24 @@ function appendStorage(storage, $links){
 	}
 }
 
-$(function(){
+$(function () {
+    //Amazing piece of code
+    loadUser();
+    function loadUser() {
+        var userManager = new UserManager();
+        userManager.getUser().then(function (user) {
+            if (user.email) {
+                $("#user-status-unauthenticated").hide();
+                $("#user-status-authenticated").show();
+                $("#user-email").text(user.email);
+            } else {
+                $("#user-status-authenticated").hide();
+                $("#user-status-unauthenticated").show();
+                $("#user-email").text("");
+            }
+        });
+    };
+
 	$("#load-links").click(function(){
 		 chrome.tabs.getSelected(null, function(tab) {
 		    chrome.tabs.sendRequest(tab.id, {greeting: "hello"}, function(response) {
@@ -33,7 +71,6 @@ $(function(){
 
 		    });
 		  });
-
 	});
 	$(document).on('click', '.delete', function(){
 	  	var $number = $(this).parent().attr('class');
