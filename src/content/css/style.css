@@ -10,4 +10,18 @@
 {
   width:20px;
   height:20px;
+  vertical-align: middle;
+  margin-right:5px;
+}
+.addX
+{
+  padding:2px 5px;
+  color:black;
+  cursor:pointer;
+  display: none;
+  border: none;
+  background-color: white;
+  font-weight: 400;
+  font-size: 8px;
+  text-transform: uppercase;
 }

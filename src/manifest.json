@@ -34,6 +34,7 @@
     "https://*/*"
   ],
    "web_accessible_resources": [
-     "content/images/add.png"
+     "content/images/add.png",
+     "content/images/rakieta.png"
    ]
 }

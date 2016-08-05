@@ -3,16 +3,15 @@
 $( document ).ready(function() {
 	var $conversation = $(".conversation");
 	var $msgs = $conversation.find("._d97");
+	var img_rocket = chrome.extension.getURL('content/images/rakieta.png');
 
+	$msgs.before('<div class="addX"><img src="' + img_rocket + '" class="hoard_add_image">Hoard it!</div>');
 
-	$(".conversation").on("mouseenter", '._d97', function(){
-			$(this).css('background-color','#81bb81');
-			$(this).css('cursor','pointer');
-			 var img_add = chrome.extension.getURL('content/images/add.png');
+	$(".conversation .addX, .conversation ._d97").mouseover( function(){
+			$(this).parent().find('.addX').show();
 			 $(this).on('click', function(){
 				 var $li = $(this).find("a");
 				 var url = $li.attr("href");
-				 console.log(url);
 					chrome.storage.local.get(['links'], function(storage) {
 						if(typeof storage.links == 'undefined') {
 							storage.links = [];
@@ -26,11 +25,26 @@ $( document ).ready(function() {
 
 			// $(this).after( "<div class='hoard_add'><img src='" + img_add + "' class='hoard_add_image'></div>" );
 	});
-	$(".conversation").on("mouseleave", '._d97', function(){
-			 $(this).css('background-color', 'initial');
-			 $(this).css('cursor','normal');
-		//	 $(this).parent().find('.hoard_add').remove();
+	var timer;
+
+	$(".conversation .addX, .conversation ._d97").mouseleave(function() {
+	    timer = setTimeout(doSomething(this), 10);
+	}).mouseenter(function() {
+	    clearTimeout(timer);
 	});
+
+	function doSomething(that) {
+		  $(that).parent().find('.addX').hide();
+	}
+	// $(".conversation .addX").mouseout( function(){
+	// 	console.log("poszlo");
+	// 		 $(this).css('cursor','normal');
+	// 		 $(this).hide();
+	// });
+	// $(".conversation ._d97").mouseout( function(){
+	// 	console.log("poszlo");
+	// 		 $(this).parent().find('.addX').hide();
+	// });
 
 });
 
@@ -52,17 +66,16 @@ function appendStorage(storage, $links){
 }
 
 $(function(){
-	$(document).on('click', '.hoard_add', function(){
+	$(document).on('click', '.addX', function(){
+			var $tekst = $(this).parent().find('._5yl5').text();
 			chrome.storage.local.get(['links'], function(storage) {
 				if(typeof storage.links == 'undefined') {
 					storage.links = [];
-				}
+				};
+				console.log ($tekst);
 				var $links = $("#links");
-				console.log(storage);
 				// Write code that finds content of msg
-				//	var $tekst = $(this).siblings().find('._5yl5').find('span');
-				//console.log($tekst);
-				storage.links.push("link");
+				storage.links.push($tekst);
 				chrome.storage.local.set({'links': storage.links});
 				appendStorage(storage, $links);
 		});
