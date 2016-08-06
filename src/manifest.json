@@ -4,7 +4,7 @@
   "description": "Hoard extension",
   "version": "1.0",
   "browser_action": {
-    "default_icon": "content/images/icon.png",
+    "default_icon": "content/images/rakieta.png",
     "default_popup": "popup.html"
   },
   "content_scripts": [
