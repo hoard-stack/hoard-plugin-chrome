@@ -3,14 +3,26 @@
 $( document ).ready(function() {
 	var $conversation = $(".conversation");
 	var $msgs = $conversation.find("._d97");
-	var img_rocket = chrome.extension.getURL('content/images/rakieta.png');
+	var img_add = chrome.extension.getURL('content/images/black-hole.png');
 
-	$msgs.before('<div class="addX"><img src="' + img_rocket + '" class="hoard_add_image">Hoard it!</div>');
+	$(".conversation").on ("mouseover", "._4gx_", function(){
+		console.log("najechane");
+		var that = $(this).find("._d97");
+		$(that).parent().css("display","flex");
+		if ($(that).parent().find('.addX').length == 0) {
+			if ($(that).parent().parent().parent().parent().attr('data-tooltip-position') == 'right')
+			{
+				$(that).before('<div class="addX"><img src="' + img_add + '" class="hoard_add_image"></div>');
+			}
+			else
+			{
+				$(that).after('<div class="addX"><img src="' + img_add + '" class="hoard_add_image"></div>');
+			}
+		}
 
-	$(".conversation .addX, .conversation ._d97").mouseover( function(){
-			$(this).parent().find('.addX').show();
-			 $(this).on('click', function(){
-				 var $li = $(this).find("a");
+			$(that).parent().find('.addX').show("fast");
+			 $(that).on('click', function(){
+				 var $li = $(that).find("a");
 				 var url = $li.attr("href");
 					chrome.storage.local.get(['links'], function(storage) {
 						if(typeof storage.links == 'undefined') {
@@ -27,14 +39,15 @@ $( document ).ready(function() {
 	});
 	var timer;
 
-	$(".conversation .addX, .conversation ._d97").mouseleave(function() {
+	$(".conversation").on ("mouseleave", "._4gx_", function() {
 	    timer = setTimeout(doSomething(this), 10);
 	}).mouseenter(function() {
 	    clearTimeout(timer);
 	});
 
 	function doSomething(that) {
-		  $(that).parent().find('.addX').hide();
+		  $(that).find('.addX').hide();
+			$(that).css("display","block");
 	}
 	// $(".conversation .addX").mouseout( function(){
 	// 	console.log("poszlo");
