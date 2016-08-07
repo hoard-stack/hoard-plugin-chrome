@@ -1,5 +1,36 @@
 'use strict';
 
+class LinkManager {
+
+    constructor() {
+        this.url = "http://localhost/me/links";
+    }
+
+    getAll() {
+        return $.get(this.url, function (links) {
+            return links;
+        }).fail(function () {
+            alert("There was an error while trying to load the links.");
+        });
+    }
+
+    save(links) {
+        var data = links.map(function (link) {
+            return { url: link };
+        });
+
+        return jQuery.ajax({
+            url: this.url,
+            type: "POST",
+            data: JSON.stringify({ links: data }),
+            contentType: "application/json",
+            success: function(response) {
+                return response;
+            }
+        });
+    }
+}
+
 class UserManager {
 
     constructor() {
@@ -12,7 +43,7 @@ class UserManager {
     }
 
     getUser() {
-        return $.get("http://localhost/authinfo", function (user) {
+        return $.get("http://localhost/me", function (user) {
             return user;
         }).fail(function () {
             alert("There was an error while trying to load the user.");
@@ -22,30 +53,38 @@ class UserManager {
 
 
 chrome.storage.local.get(['links'], function (storage) {
-		var $links = $("#links");
-		appendStorage(storage, $links);
+    appendStorage(storage);
 });
 
-function appendStorage(storage, $links){
-	if (typeof storage.links == 'undefined')
-	{
-		$links.empty();
-		$links.append("The Hoard is empty");
-		return;
-	}
+function appendStorage(storage) {
+    var $links = $("#links");
+    if (typeof storage.links == 'undefined') {
+        $links.empty();
+        $links.append("The Hoard is empty");
+        return;
+    }
 	else {
-		$links.empty();
-		storage.links.forEach(function(link, index){
-			var item = '<li class="' + index + '"><a href="' + link + '" target="_blank">' + link + '</a><button class="delete">X</button></li>';
-			$links.append(item);
-		});
-	
+	    $links.empty();
+	    //storage.local.set({ 'links': links });
+	    //links.forEach(function (link, index) {
+		//    appendLinkToList(link, index);
+        //});
+
+	    storage.links.forEach(function (link, index) {
+	        appendLinkToList(link, index);
+	    });
 	}
 }
 
+function appendLinkToList(link, index) {
+    var $links = $("#links");
+    var item = '<li class="' + index + '"><a href="' + link + '" target="_blank">' + link + '</a><button class="delete">X</button></li>';
+    $links.append(item);
+}
+
 $(function () {
-    //Amazing piece of code
     loadUser();
+    //Amazing piece of code
     function loadUser() {
         var userManager = new UserManager();
         userManager.getUser().then(function (user) {
@@ -61,17 +100,53 @@ $(function () {
         });
     };
 
-	$("#load-links").click(function(){
-		 chrome.tabs.getSelected(null, function(tab) {
-		    chrome.tabs.sendRequest(tab.id, {greeting: "hello"}, function(response) {
-					chrome.storage.local.get(['links'], function(storage) {
-			 		 	  var $links = $("#links");
-							appendStorage(storage, $links);
-					});
+    function loadLinks() {
+        var linkManager = new LinkManager();
+        linkManager.getAll().then(function (links) {
+            var $linksInfo = $("#links-info");
+            $linksInfo.text("[fetched " + links.length + " link(s) from API]");
+            links.forEach(function (link, index) {
+                appendLinkToList(link.url, index);
+            });
+        });
 
-		    });
-		  });
-	});
+        chrome.tabs.getSelected(null, function (tab) {
+            chrome.tabs.sendRequest(tab.id, { greeting: "hello" }, function (response) {
+                chrome.storage.local.get(['links'], function (storage) {
+                    //var fixedLinks = links.map(function (link) {
+                    //    return link.url;
+                    //});
+                    //appendStorage(storage, fixedLinks);
+                    appendStorage(storage);
+                });
+            });
+        });
+    };
+
+    function syncLinks() {
+        var linkManager = new LinkManager();
+        chrome.storage.local.get(['links'], function (storage) {
+
+            if (typeof storage.links == 'undefined' || storage.links.length === 0) {
+                storage.links = [];
+                alert("There are no links to be synced. Don't you have any friends on Facebook? :(");
+                return;
+            }
+
+            linkManager.save(storage.links).then(function (response) {
+                    alert("Links have been synced!");
+                });
+        });
+    };
+
+    $("#sync-links").click(function() {
+        syncLinks();
+    });
+
+    $("#load-links").click(function () {
+        loadLinks();
+    });
+
 	$(document).on('click', '.delete', function(){
 	  	var $number = $(this).parent().attr('class');
 			chrome.storage.local.get(['links'], function(storage) {
