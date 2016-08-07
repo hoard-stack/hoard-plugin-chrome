@@ -36,6 +36,7 @@
    "web_accessible_resources": [
      "content/images/add.png",
      "content/images/rakieta.png",
-     "content/images/black-hole.png"
+     "content/images/black-hole.png",
+     "content/images/added.png"
    ]
 }

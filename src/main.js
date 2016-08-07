@@ -4,38 +4,25 @@ $( document ).ready(function() {
 	var $conversation = $(".conversation");
 	var $msgs = $conversation.find("._d97");
 	var img_add = chrome.extension.getURL('content/images/black-hole.png');
+	var img_added = chrome.extension.getURL('content/images/added.png');
 
 	$(".conversation").on ("mouseover", "._4gx_", function(){
-		console.log("najechane");
 		var that = $(this).find("._d97");
-		$(that).parent().css("display","flex");
-		if ($(that).parent().find('.addX').length == 0) {
-			if ($(that).parent().parent().parent().parent().attr('data-tooltip-position') == 'right')
-			{
-				$(that).before('<div class="addX"><img src="' + img_add + '" class="hoard_add_image"></div>');
+		if ($(that).find("a").length > 0 && $(this).find(".added").length == 0)
+		{
+			if ($(that).parent().find('.addX').length == 0) {
+				if ($(that).parent().parent().parent().parent().attr('data-tooltip-position') == 'right')
+				{
+					$(that).before('<div class="addX"><img src="' + img_add + '" class="hoard_add_image"><img src="' + img_added + '" class="hoard_added_image"></div>');
+				}
+				else
+				{
+					$(that).after('<div class="addX"><img src="' + img_add + '" class="hoard_add_image"><img src="' + img_added + '" class="hoard_added_image"></div>');
+				}
 			}
-			else
-			{
-				$(that).after('<div class="addX"><img src="' + img_add + '" class="hoard_add_image"></div>');
-			}
+				$(that).parent().find('.addX').show("fast");
+
 		}
-
-			$(that).parent().find('.addX').show("fast");
-			 $(that).on('click', function(){
-				 var $li = $(that).find("a");
-				 var url = $li.attr("href");
-					chrome.storage.local.get(['links'], function(storage) {
-						if(typeof storage.links == 'undefined') {
-							storage.links = [];
-						}
-						var $links = $("#links");
-						storage.links.push(url);
-						chrome.storage.local.set({'links': storage.links});
-						appendStorage(storage, $links);
-				});
-			});
-
-			// $(this).after( "<div class='hoard_add'><img src='" + img_add + "' class='hoard_add_image'></div>" );
 	});
 	var timer;
 
@@ -47,7 +34,6 @@ $( document ).ready(function() {
 
 	function doSomething(that) {
 		  $(that).find('.addX').hide();
-			$(that).css("display","block");
 	}
 	// $(".conversation .addX").mouseout( function(){
 	// 	console.log("poszlo");
@@ -80,15 +66,20 @@ function appendStorage(storage, $links){
 
 $(function(){
 	$(document).on('click', '.addX', function(){
-			var $tekst = $(this).parent().find('._5yl5').text();
+			$(this).find('.hoard_add_image').css("display","none");
+			$(this).find('.hoard_added_image').css("display","block");
+			$(this).delay(2000).fadeOut();
+			$(this).addClass("added");
+			var text = $(this).parent().find('._5yl5').text();
+			var that = $(this);
 			chrome.storage.local.get(['links'], function(storage) {
 				if(typeof storage.links == 'undefined') {
 					storage.links = [];
 				};
-				console.log ($tekst);
+				console.log (text);
 				var $links = $("#links");
 				// Write code that finds content of msg
-				storage.links.push($tekst);
+				storage.links.push(text);
 				chrome.storage.local.set({'links': storage.links});
 				appendStorage(storage, $links);
 		});

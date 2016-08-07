@@ -12,6 +12,23 @@
   height:20px;
   vertical-align: middle;
   margin-right:5px;
+  transition-duration: 0.8s;
+  transition-property: all;
+  transition-timing-function: ease-in-out;
+  -webkit-filter: blur(0px);
+}
+.hoard_add_image:hover
+{
+  transform: rotate(180deg);
+}
+.hoard_added_image
+{
+  display:none;
+  width:20px;
+  height:20px;
+  vertical-align: middle;
+  margin-right:5px;
+  -webkit-filter: blur(0px);
 }
 .addX
 {
@@ -32,4 +49,19 @@
 
   height: 100%;
   background-color: rgba(255, 255, 255, 0.5);
+}
+.addedPopup
+{
+  display:none;
+color: black;
+text-transform: uppercase;
+background-color: white;
+border: 1px solid #ccc;
+padding: 10px 5px;
+position: absolute;
+z-index: 9999;
+top: 0px;
+right: 0px;
+font:normal 100%/1.5 'Helvetica Neue','Segoe UI', Arial, sans-serif;
+
 }
