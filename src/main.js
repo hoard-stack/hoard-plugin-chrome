@@ -82,7 +82,14 @@ $(function(){
 				storage.links.push(text);
 				chrome.storage.local.set({'links': storage.links});
 				appendStorage(storage, $links);
-		});
+			    var message = {
+			        type: "linkAdded",
+			        data: {
+			            url: text
+			        }
+			    };
+			    chrome.runtime.sendMessage(message);
+			});
 	});
 
 });

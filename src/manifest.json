@@ -7,23 +7,28 @@
     "default_icon": "content/images/rakieta.png",
     "default_popup": "popup.html"
   },
+  "background": {
+    "scripts": [ "background.js", "libs/jquery-3.0.0.min.js" ],
+    "persistent": true
+  },
   "content_scripts": [
-  {
-    "matches": ["https://www.facebook.com/*"],
-    "css": ["content/css/style.css"],
-    "js": [
-      "libs/jquery-3.0.0.min.js",
-      "main.js",
-      "features/linkFetcher.js",
-      "features/linkProcessor.js",
-      "features/linkStore.js",
-      "features/parsers/linkParser.js",
-      "features/parsers/defaultLinkParser.js",
-      "features/parsers/emptyLinkParser.js",
-      "features/parsers/facebookLinkParser.js",
-      "features/parsers/instagramLinkParser.js"
-    ]
-  }],
+    {
+      "matches": [ "https://www.facebook.com/*" ],
+      "css": [ "content/css/style.css" ],
+      "js": [
+        "libs/jquery-3.0.0.min.js",
+        "main.js",
+        "features/linkFetcher.js",
+        "features/linkProcessor.js",
+        "features/linkStore.js",
+        "features/parsers/linkParser.js",
+        "features/parsers/defaultLinkParser.js",
+        "features/parsers/emptyLinkParser.js",
+        "features/parsers/facebookLinkParser.js",
+        "features/parsers/instagramLinkParser.js"
+      ]
+    }
+  ],
   "permissions": [
     "activeTab",
     "storage",
@@ -33,10 +38,10 @@
     "http://*/*",
     "https://*/*"
   ],
-   "web_accessible_resources": [
-     "content/images/add.png",
-     "content/images/rakieta.png",
-     "content/images/black-hole.png",
-     "content/images/added.png"
-   ]
+  "web_accessible_resources": [
+    "content/images/add.png",
+    "content/images/rakieta.png",
+    "content/images/black-hole.png",
+    "content/images/added.png"
+  ]
 }

@@ -134,7 +134,7 @@ $(function () {
             }
 
             linkManager.save(storage.links).then(function (response) {
-                    alert("Links have been synced!");
+                    //alert("Links have been synced!");
                 });
         });
     };
