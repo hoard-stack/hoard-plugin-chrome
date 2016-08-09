@@ -8,7 +8,12 @@
     "default_popup": "popup.html"
   },
   "background": {
-    "scripts": [ "background.js", "libs/jquery-3.0.0.min.js" ],
+    "scripts": [
+      "background.js",
+      "features/linkManager.js",
+      "features/userManager.js",
+      "libs/jquery-3.0.0.min.js"
+    ],
     "persistent": true
   },
   "content_scripts": [
@@ -18,6 +23,8 @@
       "js": [
         "libs/jquery-3.0.0.min.js",
         "main.js",
+        "features/linkManager.js",
+        "features/userManager.js",
         "features/linkFetcher.js",
         "features/linkProcessor.js",
         "features/linkStore.js",

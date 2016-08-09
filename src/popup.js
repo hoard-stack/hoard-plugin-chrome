@@ -1,57 +1,5 @@
 'use strict';
 
-class LinkManager {
-
-    constructor() {
-        this.url = "http://localhost/me/links";
-    }
-
-    getAll() {
-        return $.get(this.url, function (links) {
-            return links;
-        }).fail(function () {
-            alert("There was an error while trying to load the links.");
-        });
-    }
-
-    save(links) {
-        var data = links.map(function (link) {
-            return { url: link };
-        });
-
-        return jQuery.ajax({
-            url: this.url,
-            type: "POST",
-            data: JSON.stringify({ links: data }),
-            contentType: "application/json",
-            success: function(response) {
-                return response;
-            }
-        });
-    }
-}
-
-class UserManager {
-
-    constructor() {
-    }
-
-    isAuthenticated() {
-        getUser().then(function (user) {
-            return user.email !== "";
-        });
-    }
-
-    getUser() {
-        return $.get("http://localhost/me", function (user) {
-            return user;
-        }).fail(function () {
-            alert("There was an error while trying to load the user.");
-        });
-    }
-}
-
-
 chrome.storage.local.get(['links'], function (storage) {
     appendStorage(storage);
 });
@@ -162,7 +110,15 @@ $(function () {
 						storage.links.forEach(function(link, index){
 					  	var item = '<li class="' + index + '"><a href="' + link + '" target="_blank">' + link + '</a><button class="delete">X</button></li>';
 					  	$links.append(item);
-					});
+						});
+
+				var message = {
+					type: "removeLink",
+					data: {
+						id: ""
+					}
+				};
+				chrome.runtime.sendMessage(message);
 		    });
 
 		});

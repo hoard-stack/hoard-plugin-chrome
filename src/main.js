@@ -83,7 +83,7 @@ $(function(){
 				chrome.storage.local.set({'links': storage.links});
 				appendStorage(storage, $links);
 			    var message = {
-			        type: "linkAdded",
+			        type: "addLink",
 			        data: {
 			            url: text
 			        }

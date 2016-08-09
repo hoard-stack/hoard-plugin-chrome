@@ -1,40 +1,14 @@
-class LinkManager {
-
-    constructor() {
-        this.url = "http://localhost/me/links";
-    }
-
-    getAll() {
-        return $.get(this.url, function (links) {
-            return links;
-        }).fail(function () {
-            alert("There was an error while trying to load the links.");
-        });
-    }
-
-    save(links) {
-        var data = links.map(function (link) {
-            return { url: link };
-        });
-
-        return jQuery.ajax({
-            url: this.url,
-            type: "POST",
-            data: JSON.stringify({ links: data }),
-            contentType: "application/json",
-            success: function (response) {
-                return response;
-            }
-        });
-    }
-}
+'use strict';
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         var type = request.type;
         switch(type) {
-            case "linkAdded":
+            case "addLink":
                 addLink(request.data);
+                break;
+            case "removeLink":
+                removeLink(request.data);
                 break;
             default:
                 alert("Unknown message type: " + type);
@@ -56,4 +30,9 @@ function addLink(link) {
             //alert("Links have been synced!");
         });
     });
-}
+};
+
+//TODO: Store a whole link object (id, url etc.) in the storage.
+function removeLink(id) {
+};
+

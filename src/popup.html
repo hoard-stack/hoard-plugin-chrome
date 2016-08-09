@@ -5,49 +5,51 @@
  value "popup.html".
  -->
 <html>
-  <head>
+<head>
     <title>Hoard</title>
     <style>
-      body {
-        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-        font-size: 100%;
-          width: 400px;
-      }
-      #status {
-        /* avoid an excessively wide status text */
-        white-space: pre;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        max-width: 400px;
-      }
+        body {
+            font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+            font-size: 100%;
+            width: 400px;
+        }
+        #status {
+            /* avoid an excessively wide status text */
+            white-space: pre;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-width: 400px;
+        }
     </style>
 
     <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
-  </head>
-  <body>
-  <div>
-      <div id="user-status">
-          <div id="user-status-authenticated" style="display: none">
-              <span>Authenticated: </span>
-              <span id="user-email"></span>
-              <a href="http://localhost/profile" target="_blank">Profile</a>
-          </div>
-          <div id="user-status-unauthenticated">
-              <span>Unauthenticated -> <a href="http://localhost/login" target="_blank">Login</a></span>
-          </div>
-      </div>
-      <strong>Links </strong><span id="links-info"></span>
-      <button id="sync-links">Sync</button>
-      <button id="load-links">Refresh</button>
-      <ol id="links">
-      </ol>
-  </div>
-    <script src="libs/jquery-3.0.0.min.js"></script>
-    <script src="popup.js"></script>
-  </body>
+    - JavaScript and HTML must be in separate files: see our Content Security
+    - Policy documentation[1] for details and explanation.
+    -
+    - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+    -->
+</head>
+<body>
+<div>
+    <div id="user-status">
+        <div id="user-status-authenticated" style="display: none">
+            <span>Authenticated: </span>
+            <span id="user-email"></span>
+            <a href="http://localhost/profile" target="_blank">Profile</a>
+        </div>
+        <div id="user-status-unauthenticated">
+            <span>Unauthenticated -> <a href="http://localhost/login" target="_blank">Login</a></span>
+        </div>
+    </div>
+    <strong>Links </strong><span id="links-info"></span>
+    <button id="sync-links">Sync</button>
+    <button id="load-links">Refresh</button>
+    <ol id="links">
+    </ol>
+</div>
+<script src="libs/jquery-3.0.0.min.js"></script>
+<script src="features/userManager.js"></script>
+<script src="features/linkManager.js"></script>
+<script src="popup.js"></script>
+</body>
 </html>

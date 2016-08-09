@@ -13,41 +13,41 @@ gulp.task('watch', ['build'], function() {
 });
 
 gulp.task('build-js', function() {
-    return gulp.src(jsFiles, {base: 'src'})
-          .pipe(babel())
-          .on('error', console.error.bind(console))
-          .pipe(gulp.dest('./dist'))
+    return gulp.src(jsFiles, { base: 'src' })
+        .pipe(babel())
+        .on('error', console.error.bind(console))
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('build-libs', function() {
-  return gulp.src('./src/libs/*.js')
-          .pipe(babel())
-          .on('error', console.error.bind(console))
-          .pipe(gulp.dest('./dist/libs'))
+    return gulp.src('./src/libs/*.js')
+        .pipe(babel())
+        .on('error', console.error.bind(console))
+        .pipe(gulp.dest('./dist/libs'));
 });
 
 gulp.task('build-html', function() {
-  return gulp.src('./src/*.html')
-          .on('error', console.error.bind(console))
-          .pipe(gulp.dest('./dist'))
+    return gulp.src('./src/*.html')
+        .on('error', console.error.bind(console))
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('build-css', function() {
-  return gulp.src('./src/content/css/*.css')
-          .on('error', console.error.bind(console))
-          .pipe(gulp.dest('./dist/content/css/'))
+    return gulp.src('./src/content/css/*.css')
+        .on('error', console.error.bind(console))
+        .pipe(gulp.dest('./dist/content/css/'));
 });
 
 gulp.task('build-images', function() {
-  return gulp.src('./src/content/images/*')
-          .on('error', console.error.bind(console))
-          .pipe(gulp.dest('./dist/content/images/'))
+    return gulp.src('./src/content/images/*')
+        .on('error', console.error.bind(console))
+        .pipe(gulp.dest('./dist/content/images/'));
 });
 
 gulp.task('build-manifest', function() {
-  return gulp.src('./src/manifest.json')
-          .on('error', console.error.bind(console))
-          .pipe(gulp.dest('./dist'))
+    return gulp.src('./src/manifest.json')
+        .on('error', console.error.bind(console))
+        .pipe(gulp.dest('./dist'));
 });
 
 
