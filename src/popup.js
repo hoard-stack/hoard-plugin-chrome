@@ -19,7 +19,7 @@ function appendStorage(storage) {
         //});
 
 	    storage.links.forEach(function (link, index) {
-	        appendLinkToList(link, index);
+	        appendLinkToList(link.url, index);
 	    });
 	}
 }

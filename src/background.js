@@ -23,10 +23,11 @@ function addLink(link) {
     chrome.storage.local.get(['links'], function (storage) {
         if (typeof storage.links == 'undefined' || storage.links.length === 0) {
             storage.links = [];
-            alert("There are no links to be synced. Don't you have any friends on Facebook? :(");
-            return;
-        }
-        linkManager.save(storage.links).then(function (response) {
+        };
+        var linkData = { id: uuid.v4(), url: link.url };
+        storage.links.push(linkData);
+        chrome.storage.local.set({ 'links': storage.links });
+        linkManager.save([linkData]).then(function (response) {
             //alert("Links have been synced!");
         });
     });

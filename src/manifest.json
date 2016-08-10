@@ -12,7 +12,8 @@
       "background.js",
       "features/linkManager.js",
       "features/userManager.js",
-      "libs/jquery-3.0.0.min.js"
+      "libs/jquery-3.0.0.min.js",
+      "libs/uuid.js"
     ],
     "persistent": true
   },

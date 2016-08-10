@@ -16,7 +16,7 @@ class LinkManager {
 
     save(links) {
         var data = links.map(function (link) {
-            return { url: link };
+            return { id: link.id, url: link.url };
         });
 
         return $.ajax({

@@ -47,21 +47,27 @@ $( document ).ready(function() {
 
 });
 
-function appendStorage(storage, $links){
-	if (typeof storage.links == 'undefined')
-	{
-		$links.empty();
-		$links.append("The Hoard is empty");
-		return;
-	}
-	else {
-		$links.empty();
-		storage.links.forEach(function(link, index){
-			var item = '<li class="' + index + '"><a href="' + link + '" target="_blank">' + link + '</a><button class="delete">X</button></li>';
-			$links.append(item);
-		});
+function appendStorage(link){
+	//if (typeof storage.links == 'undefined')
+	//{
+	//	$links.empty();
+	//	$links.append("The Hoard is empty");
+	//	return;
+	//}
+	//else {
+	//	$links.empty();
+	//	storage.links.forEach(function(link, index){
+	//		var item = '<li class="' + index + '"><a href="' + link + '" target="_blank">' + link + '</a><button class="delete">X</button></li>';
+	//		$links.append(item);
+	//	});
 
-	}
+	//}
+
+    //TODO: Fix this if needed :D.
+    var index = 0;
+	var $links = $("#links");
+	var item = '<li class="' + index + '"><a href="' + link + '" target="_blank">' + link + '</a><button class="delete">X</button></li>';
+	$links.append(item);
 }
 
 $(function(){
@@ -77,11 +83,7 @@ $(function(){
 					storage.links = [];
 				};
 				console.log (text);
-				var $links = $("#links");
-				// Write code that finds content of msg
-				storage.links.push(text);
-				chrome.storage.local.set({'links': storage.links});
-				appendStorage(storage, $links);
+				appendStorage(text);
 			    var message = {
 			        type: "addLink",
 			        data: {
