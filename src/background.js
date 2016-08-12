@@ -1,5 +1,7 @@
 'use strict';
 
+var linkManager = null;
+
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         var type = request.type;
@@ -17,9 +19,8 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-//TODO: Process link parameter instead of whole storage.links collection. 
 function addLink(link) {
-    var linkManager = new LinkManager();
+    var linkManager = getLinkManager();
     chrome.storage.local.get(['links'], function (storage) {
         if (typeof storage.links == 'undefined' || storage.links.length === 0) {
             storage.links = [];
@@ -28,12 +29,21 @@ function addLink(link) {
         storage.links.push(linkData);
         chrome.storage.local.set({ 'links': storage.links });
         linkManager.save([linkData]).then(function (response) {
-            //alert("Links have been synced!");
         });
     });
 };
 
-//TODO: Store a whole link object (id, url etc.) in the storage.
-function removeLink(id) {
+function removeLink(link) {
+    var linkManager = getLinkManager();
+    linkManager.remove(link.id).then(function (response) {
+    });
 };
+
+function getLinkManager() {
+    if (linkManager === null) {
+        linkManager = new LinkManager();
+    }
+
+    return linkManager;
+}
 

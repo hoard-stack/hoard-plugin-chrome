@@ -47,7 +47,7 @@ $( document ).ready(function() {
 
 });
 
-function appendStorage(link){
+function appendStorage(link, index){
 	//if (typeof storage.links == 'undefined')
 	//{
 	//	$links.empty();
@@ -63,8 +63,6 @@ function appendStorage(link){
 
 	//}
 
-    //TODO: Fix this if needed :D.
-    var index = 0;
 	var $links = $("#links");
 	var item = '<li class="' + index + '"><a href="' + link + '" target="_blank">' + link + '</a><button class="delete">X</button></li>';
 	$links.append(item);
@@ -82,8 +80,9 @@ $(function(){
 				if(typeof storage.links == 'undefined') {
 					storage.links = [];
 				};
+			    var index = storage.links.length;
 				console.log (text);
-				appendStorage(text);
+				appendStorage(text, index);
 			    var message = {
 			        type: "addLink",
 			        data: {

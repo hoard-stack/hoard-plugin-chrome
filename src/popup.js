@@ -53,8 +53,20 @@ $(function () {
         linkManager.getAll().then(function (links) {
             var $linksInfo = $("#links-info");
             $linksInfo.text("[fetched " + links.length + " link(s) from API]");
-            links.forEach(function (link, index) {
-                appendLinkToList(link.url, index);
+
+            chrome.storage.local.get(['links'], function (storage) {
+                if (typeof storage.links == 'undefined' || storage.links.length === 0) {
+                    storage.links = [];
+                };
+
+                storage.links = links.map(function (link) {
+                    return { id: link.id, url: link.url }
+                });
+                chrome.storage.local.set({ 'links': storage.links });
+            
+                links.forEach(function (link, index) {
+                    appendLinkToList(link.url, index);
+                });
             });
         });
 
@@ -96,32 +108,31 @@ $(function () {
     });
 
 	$(document).on('click', '.delete', function(){
-	  	var $number = $(this).parent().attr('class');
-			chrome.storage.local.get(['links'], function(storage) {
-				var $links = $("#links");
-		    storage.links.splice($number, 1);
+	    var linkIndex = parseInt($(this).parent().attr('class'));
+	    chrome.storage.local.get(['links'], function (storage) {
+			    var $links = $("#links");
+			    var linkToRemove = storage.links[linkIndex];
+				storage.links.splice(linkIndex, 1);
 				var new_links = storage.links;
 
 				chrome.storage.local.set({'links': new_links}, function() {
 		        $links.append(new_links);
 						$("#links").empty();
-						$links.append('Item number ' + $number + 'deleted!');
+						$links.append('Item number ' + linkIndex + 'deleted!');
 						$links.append("<br>After deleting:");
 						storage.links.forEach(function(link, index){
-					  	var item = '<li class="' + index + '"><a href="' + link + '" target="_blank">' + link + '</a><button class="delete">X</button></li>';
+						    var item = '<li class="' + index + '"><a href="' + link.url + '" target="_blank">' + link.url + '</a><button class="delete">X</button></li>';
 					  	$links.append(item);
 						});
 
 				var message = {
 					type: "removeLink",
 					data: {
-						id: ""
+					    id: linkToRemove.id
 					}
 				};
 				chrome.runtime.sendMessage(message);
 		    });
-
 		});
 	});
-
 });
